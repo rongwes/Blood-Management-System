@@ -4,7 +4,7 @@ import SideBar from "./SideBar";
 
 export default function Layout() {
   return (
-    <div className="flex flex-row bg-neutral-100 h-screen w-screen overflow-hidden">
+    <div style={{ backgroundColor: '#F5F5F5'}} className="flex flex-row h-screen w-screen overflow-hidden">
       <SideBar />
       <div className="p-4">
         {/*<div>header</div>*/}

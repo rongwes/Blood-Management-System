@@ -1,6 +1,17 @@
+
 @import "tailwindcss";
 
-
+.sidebar-link:hover, .sidebar-link:focus {
+  background-color: #FFE5E5 !important;
+}
+.sidebar-link:hover .sidebar-icon,
+.sidebar-link:focus .sidebar-icon {
+  filter: brightness(0) saturate(100%) invert(34%) sepia(94%) saturate(749%) hue-rotate(338deg) brightness(101%) contrast(101%);
+}
+.sidebar-link:hover .sidebar-label,
+.sidebar-link:focus .sidebar-label {
+  color: #FF4747 !important;
+}
 /*:root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
