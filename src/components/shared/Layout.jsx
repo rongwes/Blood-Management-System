@@ -5,12 +5,15 @@ import Header from "./Header";
 
 export default function Layout() {
   return (
-    <div style={{ backgroundColor: '#F5F5F5'}} className="flex flex-row h-screen w-screen overflow-hidden">
+    <div className="flex h-screen w-screen overflow-hidden bg-gray-100">
       <SideBar />
-      <div className="p-2 flex-1 overflow-y-auto" >
+      <div className="flex-1 overflow-y-auto p-6">
         <Header />
-        <div>{<Outlet />}</div>
+        <div>
+          <Outlet />
+        </div>
       </div>
     </div>
   );
 }
+
