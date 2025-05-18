@@ -6,6 +6,7 @@ import Donations from "./pages/donations/Donations.jsx";
 import Inventory from "./pages/inventory/Inventory.jsx";
 import BloodRequests from "./pages/bloodRequests/BloodRequests.jsx"
 import Facilities from "./pages/facilities/Facilities.jsx";
+import Login from "./pages/login/Login.jsx"; 
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
           <Route path="facilities" element={<Facilities />} />
         </Route>
         {/*For pages that do not require shared components such as login page */}
-        <Route path="login" element={<div>Login</div>}/>
+        <Route path="login" element={<Login />} />
       </Routes>
     </Router>
   );
