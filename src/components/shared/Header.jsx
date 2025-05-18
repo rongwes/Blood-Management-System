@@ -27,7 +27,7 @@ export default function Header() {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    // Get the title based on the current path
+    
     const title = PAGE_TITLES[location.pathname] || '';
 
     return (
@@ -42,7 +42,7 @@ export default function Header() {
                         onClick={() => setShowNotifications((v) => !v)}
                     />
                     {showNotifications && (
-                        <div className="absolute right-0 mt-2 w-64 bg-white border rounded shadow-lg z-10 p-4">
+                        <div className="absolute right-0 mt-2 w-64 bg-[#F5F5F5] border rounded shadow-lg z-10 p-4">
                             <div className="font-inter font-medium mb-2">Notifications</div>
                             <div>No new notifications.</div>
                         </div>
