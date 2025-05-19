@@ -6,7 +6,7 @@ import Donations from "./pages/donations/Donations.jsx";
 import Inventory from "./pages/inventory/Inventory.jsx";
 import Facilities from "./pages/facilities/Facilities.jsx";
 import Login from "./pages/login/Login.jsx"; 
-import BloodRequests from "./pages/Analytics/BloodRequests.jsx";
+import BloodRequests from "./pages/bloodRequests/BloodRequests.jsx";
 
 function App() {
   return (
