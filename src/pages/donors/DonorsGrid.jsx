@@ -22,16 +22,16 @@ function Card({ title, value, icon }) {
             className="bg-white border border-gray-200 flex items-center p-4"
             style={{
                 width: 285,
-                height: 105,
-                borderRadius: 16,
-                boxShadow: "0px 8px 10px 0px rgba(0,0,0,0.20)"
+                height: 80,
+                borderRadius: 10,
+                boxShadow: "0px 4px 5px 0px rgba(0,0,0,0.10)"
             }}
         >
             <div className="flex flex-col flex-1">
-                <span className="font-inter font-semibold text-[20px] text-[#686868] pl-3">{title}</span>
-                <span className="font-inter font-bold text-[32px] text-[#FF7171]">{value}</span>
+                <span className="font-inter font-semibold text-[15px] text-[#686868]">{title}</span>
+                <span className="font-inter font-bold text-[20px] text-[#FF7171]">{value}</span>
             </div>
-            <img src={icon} alt={title + " icon"} className="w-[50px] h-[50px]" />
+            <img src={icon} alt={title + " icon"} className="w-[25px] h-[25px]" />
         </div>
     );
 }
