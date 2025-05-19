@@ -1,46 +1,54 @@
-import React from "react";
-
-const requests = [
-  {
-    id: "RQ001",
-    facility: "Johannesburg Hospital",
-    bloodType: "A+",
-    status: "pending",
-    date: "2025-05-10",
-  },
-  {
-    id: "RQ002",
-    facility: "Pretoria Clinic",
-    bloodType: "O-",
-    status: "processing",
-    date: "2025-05-11",
-  },
-  {
-    id: "RQ003",
-    facility: "Cape Town Medical",
-    bloodType: "B+",
-    status: "fulfilled",
-    date: "2025-05-12",
-  },
-];
-
-function getStatusStyles(status) {
-  if (status === "pending") {
-    return "bg-[#FFF1DD] text-[#EF9415]";
-  }
-  if (status === "processing") {
-    return "bg-[#C9D8FF] text-[#0A2C81]";
-  }
-  if (status === "fulfilled") {
-    return "bg-[#DDFFF0] text-[#0A813B]";
-  }
-  return "";
-}
-
-const headerStyle = { color: "#F5F5F5", fontFamily: "Inter", fontWeight: 500, fontSize: 11 };
-const cellStyle = { color: "#807C7C", fontFamily: "Inter", fontWeight: 500, fontSize: 9 };
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function RecentBloodRequests() {
+  const [requests, setRequests] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+    axios.get('/api/blood-requests/with-facility')
+      .then(response => {
+        if (response.data && response.data.requests) {
+          // Transform the data to match the component's expected format
+          const formattedRequests = response.data.requests.map(req => ({
+            id: req.id,
+            facility: req.facility_name,
+            bloodType: req.blood_type,
+            status: req.status || 'pending',
+            date: req.request_date.split('T')[0], // Format the date to YYYY-MM-DD
+          }));
+          setRequests(formattedRequests);
+        }
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching blood requests:', error);
+        setError('Failed to load blood requests data');
+        setLoading(false);
+      });
+  }, []);
+
+  function getStatusStyles(status) {
+    if (status === "pending") {
+      return "bg-[#FFF1DD] text-[#EF9415]";
+    }
+    if (status === "processing") {
+      return "bg-[#C9D8FF] text-[#0A2C81]";
+    }
+    if (status === "fulfilled") {
+      return "bg-[#DDFFF0] text-[#0A813B]";
+    }
+    return "";
+  }
+
+  const headerStyle = { color: "#F5F5F5", fontFamily: "Inter", fontWeight: 500, fontSize: 11 };
+  const cellStyle = { color: "#807C7C", fontFamily: "Inter", fontWeight: 500, fontSize: 9 };
+
+  if (loading) return <div>Loading requests...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
     <div className="w-full mt-8 overflow-x-auto">
       <div className="font-inter font-semibold text-[20px] text-[#686868] mb-4">Recent Blood Requests</div>
@@ -73,4 +81,3 @@ export default function RecentBloodRequests() {
     </div>
   );
 }
-

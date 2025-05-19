@@ -1,45 +1,56 @@
-import React from "react";
-
-const inventory = [
-  {
-    bloodType: "A+",
-    availableUnits: 120,
-    expiringSoon: 5,
-    status: "sufficient",
-  },
-  {
-    bloodType: "O-",
-    availableUnits: 18,
-    expiringSoon: 2,
-    status: "low",
-  },
-  {
-    bloodType: "B+",
-    availableUnits: 4,
-    expiringSoon: 1,
-    status: "critical",
-  },
-];
-
-function getStatusStyles(status) {
-  if (status === "sufficient") {
-    return "bg-[#DDFFF0] text-[#0A813B]";
-  }
-  if (status === "low") {
-    return "bg-[#FFF1DD] text-[#EF9415]";
-  }
-  if (status === "critical") {
-    return "bg-[#FFDDDD] text-[#E54040]";
-  }
-  return "";
-}
-const headerStyle = { color: "#F5F5F5", fontFamily: "Inter", fontWeight: 500, fontSize: 11 };
-const cellStyle = { color: "#807C7C", fontFamily: "Inter", fontWeight: 500, fontSize: 9 };
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function BloodInventoryTable() {
+  const [inventory, setInventory] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+    axios.get('/api/blood-inventory/stats')
+      .then(response => {
+        if (response.data && response.data.inventoryData) {
+          // Transform the data to match the component's expected format
+          const formattedInventory = response.data.inventoryData.map(item => ({
+            bloodType: item.blood_type,
+            availableUnits: item.available,
+            expiringSoon: item.expiring_soon,
+            status: item.status ? item.status.toLowerCase() : 'sufficient',
+          }));
+          setInventory(formattedInventory);
+        }
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching blood inventory:', error);
+        setError('Failed to load blood inventory data');
+        setLoading(false);
+      });
+  }, []);
+
+  function getStatusStyles(status) {
+    if (status === "sufficient") {
+      return "bg-[#DDFFF0] text-[#0A813B]";
+    }
+    if (status === "low") {
+      return "bg-[#FFF1DD] text-[#EF9415]";
+    }
+    if (status === "critical") {
+      return "bg-[#FFDDDD] text-[#E54040]";
+    }
+    return "";
+  }
+  
+  const headerStyle = { color: "#F5F5F5", fontFamily: "Inter", fontWeight: 500, fontSize: 11 };
+  const cellStyle = { color: "#807C7C", fontFamily: "Inter", fontWeight: 500, fontSize: 9 };
+
+  if (loading) return <div>Loading inventory...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
     <div className="w-full mt-8 overflow-x-auto">
-      <div className="font-inter font-semibold text-[20px] text-[#686868] mb-4">Recent Blood Inventory</div>
+      <div className="font-inter font-semibold text-[20px] text-[#686868] mb-4">Blood Inventory</div>
       <table className="min-w-full bg-white border border-gray-200 rounded">
         <thead>
           <tr style={{ background: "#272727" }}>

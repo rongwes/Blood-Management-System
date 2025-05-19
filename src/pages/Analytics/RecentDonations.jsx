@@ -1,48 +1,49 @@
-import React, { useState } from "react";
-
-const donations = [
-  {
-    id: "DON-2025-0432",
-    donor: "Thabo Mosia",
-    bloodType: "A-",
-    assistedBy: "Dr. James London",
-    date: "2025-04-23",
-  },
-  {
-    id: "DON-2025-0431",
-    donor: "Lerato Ndaba",
-    bloodType: "A+",
-    assistedBy: "Nurse Maria Garcia",
-    date: "2025-04-22",
-  },
-  {
-    id: "DON-2025-0430",
-    donor: "Ntando Moloto",
-    bloodType: "B+",
-    assistedBy: "Dr. Emily Chen",
-    date: "2025-04-20",
-  },
-  {
-    id: "DON-2025-0429",
-    donor: "Jane Smith",
-    bloodType: "AB-",
-    assistedBy: "Nurse Kitso Omang",
-    date: "2025-04-18",
-  },
-  {
-    id: "DON-2025-0428",
-    donor: "John Doe",
-    bloodType: "A-",
-    assistedBy: "Nurse Maria Garcia",
-    date: "2025-04-17",
-  },
-];
-
-const headerStyle = { background: "#DBDBDB", color: "#807C7C", fontFamily: "Inter", fontWeight: 600, fontSize: 11 };
-const cellStyle = { color: "#686868", fontFamily: "Inter", fontWeight: 500, fontSize: 9 };
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function RecentDonations() {
+  const [donations, setDonations] = useState([]);
   const [selectedDonation, setSelectedDonation] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+    axios.get('/api/donations/details')
+      .then(response => {
+        console.log('Donations response:', response.data);
+        if (response.data && response.data.donations) {
+          // Transform the data to match the component's expected format
+          const formattedDonations = response.data.donations.map(donation => ({
+            id: donation.donation_id || donation.id,
+            donor: `${donation.donor_name || ''} ${donation.donor_surname || ''}`.trim(),
+            bloodType: donation.blood_type,
+            assistedBy: `${donation.employee_first_name || ''} ${donation.employee_last_name || ''}`.trim(),
+            date: donation.donation_date ? donation.donation_date.split('T')[0] : '',
+            unitDonated: donation.unit_donated
+          }));
+          setDonations(formattedDonations);
+        }
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching donations:', error);
+        setError('Failed to load donation data');
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (donations.length > 0) {
+      console.log('Donations loaded:', donations[0]);
+    }
+  }, [donations]);
+
+  const headerStyle = { background: "#DBDBDB", color: "#807C7C", fontFamily: "Inter", fontWeight: 600, fontSize: 11 };
+  const cellStyle = { color: "#686868", fontFamily: "Inter", fontWeight: 500, fontSize: 9 };
+
+  if (loading) return <div>Loading donations...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div className="w-full mt-8 overflow-x-auto">
@@ -96,6 +97,7 @@ export default function RecentDonations() {
             <div className="mb-2"><b>Blood Type:</b> {selectedDonation.bloodType}</div>
             <div className="mb-2"><b>Assisted by:</b> {selectedDonation.assistedBy}</div>
             <div className="mb-2"><b>Date:</b> {selectedDonation.date}</div>
+            <div className="mb-2"><b>Units Donated:</b> {selectedDonation.unitDonated || 'N/A'}</div>
             <button
               className="mt-4 px-4 py-2 bg-[#CFCDCD] text-white rounded"
               onClick={() => setSelectedDonation(null)}
