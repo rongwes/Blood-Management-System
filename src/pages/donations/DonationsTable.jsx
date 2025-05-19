@@ -106,6 +106,7 @@ export default function DonationsTable() {
     fetchDonations().then(setDonations);
   }, []);
 
+  
   return (
     <div className="w-full mt-8 overflow-x-auto">
       <table className="min-w-full bg-white border border-gray-200 rounded">
