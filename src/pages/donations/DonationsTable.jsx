@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 // Mock fetch function for testing
@@ -102,9 +103,25 @@ export default function DonationsTable() {
   const [donations, setDonations] = useState([]);
   const [selectedDonation, setSelectedDonation] = useState(null);
 
-  useEffect(() => {
-    fetchDonations().then(setDonations);
-  }, []);
+  // useEffect(() => {
+  //   fetchDonations().then(setDonations);
+  // }, []);
+
+      useEffect(() => {
+        axios.get('/api/donations/details')
+            .then(response => {
+                console.log(response.data)
+                setDonations(response.data.donations)
+                console.log('Donations:', donations)
+            })
+            .catch(error => {
+                console.log('Error fetching donations:', error)
+            })
+    },[])
+
+    useEffect(() => {
+        console.log('Donors updated:', donations[0]);
+    }, [donations]);
 
   
   return (
@@ -123,11 +140,11 @@ export default function DonationsTable() {
         <tbody>
           {donations.map((donation) => (
             <tr key={donation.id} className="hover:bg-[#CFCDCD]">
-              <td className="px-4 py-2 border-b border-gray-200 border-r border-gray-200" style={cellStyle}>{donation.id}</td>
-              <td className="px-4 py-2 border-b border-gray-200 border-r border-gray-200" style={cellStyle}>{donation.donor}</td>
-              <td className="px-4 py-2 border-b border-gray-200 border-r border-gray-200" style={cellStyle}>{donation.bloodType}</td>
-              <td className="px-4 py-2 border-b border-gray-200 border-r border-gray-200" style={cellStyle}>{donation.assistedBy}</td>
-              <td className="px-4 py-2 border-b border-gray-200 border-r border-gray-200" style={cellStyle}>{donation.date}</td>
+              <td className="px-4 py-2 border-b border-gray-200 border-r border-gray-200" style={cellStyle}>{donation.donation_id}</td>
+              <td className="px-4 py-2 border-b border-gray-200 border-r border-gray-200" style={cellStyle}>{donation.donor_name + ' ' + donation.donor_surname}</td>
+              <td className="px-4 py-2 border-b border-gray-200 border-r border-gray-200" style={cellStyle}>{donation.blood_type}</td>
+              <td className="px-4 py-2 border-b border-gray-200 border-r border-gray-200" style={cellStyle}>{donation.employee_first_name + ' ' + donation.employee_last_name}</td>
+              <td className="px-4 py-2 border-b border-gray-200 border-r border-gray-200" style={cellStyle}>{donation.donation_date.split('T')[0]}</td>
               <td className="px-4 py-2 border-b border-gray-200" style={cellStyle}>
                 <button
                   style={{ color: '#807C7C', fontFamily: 'Inter', fontWeight: 500, fontSize: 13, background: 'none', border: 'none', cursor: 'pointer' }}

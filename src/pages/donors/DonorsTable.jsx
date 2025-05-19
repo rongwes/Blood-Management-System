@@ -103,21 +103,12 @@ const fetchDonors = async () => [
   },
 ];
 
-const formatDate = (dateStr) => {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short', // gives 'May'
-    day: '2-digit'
-  }).replace(',', ''); // optional: removes comma
-};
-
 export default function DonorsTable() {
   const [donors, setDonors] = useState([]);
   const [selectedDonor, setSelectedDonor] = useState(null);
 
     useEffect(() => {
-        axios.get('/api/donors/with-recent-donations')
+        axios.get('/api/donors')
             .then(response => {
                 console.log(response.data)
                 setDonors(response.data.donors)
@@ -142,9 +133,8 @@ export default function DonorsTable() {
             <th className="px-4 py-2 text-left border-r border-gray-200" style={{ color: '#F5F5F5', fontFamily: 'Inter', fontWeight: 500, fontSize: 13 }}>Donor Name</th>
             <th className="px-4 py-2 text-left border-r border-gray-200" style={{ color: '#F5F5F5', fontFamily: 'Inter', fontWeight: 500, fontSize: 13 }}>Donor Surname</th>
             <th className="px-4 py-2 text-left border-r border-gray-200" style={{ color: '#F5F5F5', fontFamily: 'Inter', fontWeight: 500, fontSize: 13 }}>Blood Type</th>
-            <th className="px-4 py-2 text-left border-r border-gray-200" style={{ color: '#F5F5F5', fontFamily: 'Inter', fontWeight: 500, fontSize: 13 }}>Last Donation Date</th>
             <th className="px-4 py-2 text-left border-r border-gray-200" style={{ color: '#F5F5F5', fontFamily: 'Inter', fontWeight: 500, fontSize: 13 }}>Eligibility</th>
-            <th className="px-4 py-2 text-left border-r border-gray-200" style={{ color: '#F5F5F5', fontFamily: 'Inter', fontWeight: 500, fontSize: 13 }}>Units Donated</th>
+            <th className="px-4 py-2 text-left border-r border-gray-200" style={{ color: '#F5F5F5', fontFamily: 'Inter', fontWeight: 500, fontSize: 13 }}>Registered On</th>
             <th className="px-4 py-2 text-left border-b border-gray-200" style={{ color: '#F5F5F5', fontFamily: 'Inter', fontWeight: 500, fontSize: 13 }}>Action</th>
           </tr>
         </thead>
@@ -155,9 +145,8 @@ export default function DonorsTable() {
               <td className="px-4 py-2 border-r border-gray-200 border-b border-gray-200" style={{ color: '#807C7C', fontFamily: 'Inter', fontWeight: 500, fontSize: 13 }}>{donor.name}</td>
               <td className="px-4 py-2 border-r border-gray-200 border-b border-gray-200" style={{ color: '#807C7C', fontFamily: 'Inter', fontWeight: 500, fontSize: 13 }}>{donor.surname}</td>
               <td className="px-4 py-2 border-r border-gray-200 border-b border-gray-200" style={{ color: '#807C7C', fontFamily: 'Inter', fontWeight: 500, fontSize: 13 }}>{donor.blood_type}</td>
-              <td className="px-4 py-2 border-r border-gray-200 border-b border-gray-200" style={{ color: '#807C7C', fontFamily: 'Inter', fontWeight: 500, fontSize: 13 }}>{formatDate(donor.donation_date)}</td>
               <td className="px-4 py-2 border-r border-gray-200 border-b border-gray-200" style={{ color: '#807C7C', fontFamily: 'Inter', fontWeight: 500, fontSize: 13 }}>{donor.eligibility_status == true ? 'eligble' : ''}</td>
-              <td className="px-4 py-2 border-r border-gray-200 border-b border-gray-200" style={{ color: '#807C7C', fontFamily: 'Inter', fontWeight: 500, fontSize: 13 }}>{donor.unit_donated}</td>
+              <td className="px-4 py-2 border-r border-gray-200 border-b border-gray-200" style={{ color: '#807C7C', fontFamily: 'Inter', fontWeight: 500, fontSize: 13 }}>{donor.created_at.split('T')[0]}</td>
               <td className="px-4 py-2 border-b border-gray-200">
                 <button
                   style={{ color: '#807C7C', fontFamily: 'Inter', fontWeight: 500, fontSize: 13, background: 'none', border: 'none', cursor: 'pointer' }}
