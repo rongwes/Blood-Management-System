@@ -489,17 +489,30 @@ export default function NewDonors() {
                     border: 'none', paddingLeft: 12, fontSize: 18, color: '#707070',
                   }}
                 />
-                <input name="nokEmail" value={form.nokEmail} onChange={handleChange} placeholder="Email" className="font-inter font-medium"
-                  style={{width: 291,height: 40,borderRadius: 6,
+                <input 
+                  name="nokEmail" 
+                  value={form.nokEmail} 
+                  onChange={handleChange} 
+                  placeholder="Email" 
+                  className="font-inter font-medium"
+                  style={{
+                    width: 291,height: 40,borderRadius: 6,
                     background: '#D9D9D9',border: 'none',paddingLeft: 12,fontSize: 18,color: '#707070',
-                  }}/>
+                  }}
+                />
               </div>
               <div className="mb-4">
-                <input name="nokAddress" value={form.nokAddress} onChange={handleChange} placeholder="Address"
+                <input 
+                  name="nokAddress" 
+                  value={form.nokAddress} 
+                  onChange={handleChange} 
+                  placeholder="Address"
                   className="font-inter font-medium"
-                  style={{width: 600,height: 40,borderRadius: 6,
+                  style={{
+                    width: 600,height: 40,borderRadius: 6,
                     background: '#D9D9D9',border: 'none',paddingLeft: 12,fontSize: 18,color: '#707070',
-                  }}/>
+                  }}
+                />
               </div>
 
               <div className="flex justify-center mt-6">

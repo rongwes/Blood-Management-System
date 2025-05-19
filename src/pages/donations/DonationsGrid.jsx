@@ -1,20 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import total_donations_icon from "../../assets/total_donations_icon.png" 
 import avg_units_icon from "../../assets/avg_units_icon.png" 
 import units_collected_icon from "../../assets/units_collected_icon.png" 
-
-// Will be replaced with real logic 
-function getTotalDonations() {
-    return 1120;
-}
-
-function getUnitsCollected() {
-    return 589;
-}
-
-function getAverageUnitsPerDonation() {
-    return 1;
-}
 
 function Card({ title, value, icon }) {
     return (
@@ -37,11 +25,62 @@ function Card({ title, value, icon }) {
 }
 
 export default function DonationsGrid() {
+    const [donationsStats, setDonationsStats] = useState({
+        totalDonations: 0,
+        unitsCollected: 0,
+        avgUnitsPerDonation: 0
+    });
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        // Fetch all donations data
+        axios.get('/api/donations')
+            .then(response => {
+                const donations = response.data.donations;
+                if (donations && donations.length > 0) {
+                    // Calculate total donations count
+                    const totalDonations = donations.length;
+                    
+                    // Calculate total units collected
+                    const unitsCollected = donations.reduce((sum, donation) => 
+                        sum + (donation.unit_donated || 0), 0);
+                    
+                    // Calculate average units per donation
+                    const avgUnitsPerDonation = totalDonations > 0 
+                        ? Math.round((unitsCollected / totalDonations) * 10) / 10 
+                        : 0;
+                    
+                    setDonationsStats({
+                        totalDonations,
+                        unitsCollected,
+                        avgUnitsPerDonation
+                    });
+                }
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching donations:', error);
+                setLoading(false);
+            });
+    }, []);
+
     return (
         <div className='flex flex-row gap-1 w-full justify-evenly'>
-            <Card title="Total donations" value={getTotalDonations()} icon={total_donations_icon} />
-            <Card title="Units collected" value={getUnitsCollected()} icon={units_collected_icon} />
-            <Card title="Average units per donation" value={getAverageUnitsPerDonation()} icon={avg_units_icon} />
+            <Card 
+                title="Total donations" 
+                value={loading ? "Loading..." : donationsStats.totalDonations} 
+                icon={total_donations_icon} 
+            />
+            <Card 
+                title="Units collected" 
+                value={loading ? "Loading..." : donationsStats.unitsCollected} 
+                icon={units_collected_icon} 
+            />
+            <Card 
+                title="Average units per donation" 
+                value={loading ? "Loading..." : donationsStats.avgUnitsPerDonation} 
+                icon={avg_units_icon} 
+            />
         </div>
     )
 }
