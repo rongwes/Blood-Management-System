@@ -4,9 +4,9 @@ import Analytics from "./pages/Analytics/Analytics.jsx"
 import Donors from "./pages/donors/Donors.jsx";
 import Donations from "./pages/donations/Donations.jsx";
 import Inventory from "./pages/inventory/Inventory.jsx";
-import BloodRequests from "./pages/bloodRequests/BloodRequests.jsx"
 import Facilities from "./pages/facilities/Facilities.jsx";
 import Login from "./pages/login/Login.jsx"; 
+import BloodRequests from "./pages/Analytics/BloodRequests.jsx";
 
 function App() {
   return (
