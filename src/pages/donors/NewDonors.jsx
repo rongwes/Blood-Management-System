@@ -20,7 +20,12 @@ export default function NewDonors() {
     nokName: '',
     nokSurname: '',
     nokIdNumber: '',
-    nokAddress: '',
+    nokCountry: '',
+    nokProvince: '',
+    nokCity: '',
+    nokTown: '',
+    nokStreet: '',
+    nokStandNumber: '',
     nokPrimaryNumber: '',
     nokSecondaryNumber: '',
     nokEmail: '',
@@ -245,6 +250,7 @@ export default function NewDonors() {
                 />
               </div>
 
+
               {/* Next of Kin */}
               <div className="font-inter font-medium mb-2" style={{ color: '#707070', fontSize: 20 }}>
                 Next of Kin Details
@@ -254,16 +260,16 @@ export default function NewDonors() {
                   name="nokName" value={form.nokName} onChange={handleChange}
                   placeholder="Name" className="font-inter font-medium"
                   style={{
-                    width: 291,height: 40,borderRadius: 6,background: '#D9D9D9',
-                    border: 'none',paddingLeft: 12,fontSize: 18,color: '#707070',
+                    width: 291, height: 40, borderRadius: 6, background: '#D9D9D9',
+                    border: 'none', paddingLeft: 12, fontSize: 18, color: '#707070',
                   }}
                 />
                 <input
                   name="nokSurname" value={form.nokSurname} onChange={handleChange}
                   placeholder="Surname" className="font-inter font-medium"
                   style={{
-                    width: 291,height: 40,borderRadius: 6,
-                    background: '#D9D9D9',border: 'none',paddingLeft: 12,fontSize: 18,color: '#707070',
+                    width: 291, height: 40, borderRadius: 6,
+                    background: '#D9D9D9', border: 'none', paddingLeft: 12, fontSize: 18, color: '#707070',
                   }}
                 />
               </div>
@@ -272,16 +278,16 @@ export default function NewDonors() {
                   name="nokIdNumber" value={form.nokIdNumber} onChange={handleChange}
                   placeholder="ID Number" className="font-inter font-medium"
                   style={{
-                    width: 291,height: 40,borderRadius: 6,
-                    background: '#D9D9D9',  border: 'none', paddingLeft: 12, fontSize: 18, color: '#707070',
+                    width: 291, height: 40, borderRadius: 6,
+                    background: '#D9D9D9', border: 'none', paddingLeft: 12, fontSize: 18, color: '#707070',
                   }}
                 />
                 <input
                   name="nokPrimaryNumber" value={form.nokPrimaryNumber}
                   onChange={handleChange} placeholder="Primary Number" className="font-inter font-medium"
                   style={{
-                    width: 291,height: 40,borderRadius: 6,
-                    background: '#D9D9D9',border: 'none',paddingLeft: 12,fontSize: 18,color: '#707070',
+                    width: 291, height: 40, borderRadius: 6,
+                    background: '#D9D9D9', border: 'none', paddingLeft: 12, fontSize: 18, color: '#707070',
                   }}
                 />
               </div>
@@ -290,22 +296,78 @@ export default function NewDonors() {
                   name="nokSecondaryNumber" value={form.nokSecondaryNumber}
                   onChange={handleChange} placeholder="Secondary Number" className="font-inter font-medium"
                   style={{
-                    width: 291,height: 40,borderRadius: 6,background: '#D9D9D9',
-                    border: 'none',paddingLeft: 12,fontSize: 18,color: '#707070',
+                    width: 291, height: 40, borderRadius: 6, background: '#D9D9D9',
+                    border: 'none', paddingLeft: 12, fontSize: 18, color: '#707070',
                   }}
                 />
-                <input name="nokEmail" value={form.nokEmail} onChange={handleChange} placeholder="Email" className="font-inter font-medium"
-                  style={{width: 291,height: 40,borderRadius: 6,
-                    background: '#D9D9D9',border: 'none',paddingLeft: 12,fontSize: 18,color: '#707070',
-                  }}/>
+                <input
+                  name="nokEmail" value={form.nokEmail} onChange={handleChange} placeholder="Email" className="font-inter font-medium"
+                  style={{
+                    width: 291, height: 40, borderRadius: 6,
+                    background: '#D9D9D9', border: 'none', paddingLeft: 12, fontSize: 18, color: '#707070',
+                  }}
+                />
               </div>
-              <div className="mb-4">
-                <input name="nokAddress" value={form.nokAddress} onChange={handleChange} placeholder="Address"
-                  className="font-inter font-medium"
-                  style={{width: 600,height: 40,borderRadius: 6,
-                    background: '#D9D9D9',border: 'none',paddingLeft: 12,fontSize: 18,color: '#707070',
-                  }}/>
+
+              {/* Next of Kin Address */}
+              <div className="font-inter font-medium mb-2" style={{ color: '#707070', fontSize: 20 }}>
+                Next of Kin Address
               </div>
+              <div className="flex gap-4 mb-4">
+                <input
+                  name="nokCountry" value={form.nokCountry || ''} onChange={handleChange}
+                  placeholder="Country" className="font-inter font-medium"
+                  style={{
+                    width: 291, height: 40, borderRadius: 6, background: '#D9D9D9',
+                    border: 'none', paddingLeft: 12, fontSize: 18, color: '#707070',
+                  }}
+                />
+                <input
+                  name="nokProvince" value={form.nokProvince || ''}  onChange={handleChange}
+                  placeholder="Province" className="font-inter font-medium"
+                  style={{
+                    width: 291, height: 40, borderRadius: 6, background: '#D9D9D9',
+                    border: 'none', paddingLeft: 12, fontSize: 18, color: '#707070',
+                  }}
+                />
+              </div>
+              <div className="flex gap-4 mb-4">
+                <input
+                  name="nokCity" value={form.nokCity || ''} onChange={handleChange}
+                  placeholder="City" className="font-inter font-medium"
+                  style={{
+                    width: 291, height: 40, borderRadius: 6, background: '#D9D9D9',
+                    border: 'none', paddingLeft: 12, fontSize: 18, color: '#707070',
+                  }}
+                />
+                <input
+                  name="nokTown" value={form.nokTown || ''} onChange={handleChange}
+                  placeholder="Town" className="font-inter font-medium"
+                  style={{
+                    width: 291, height: 40, borderRadius: 6, background: '#D9D9D9',
+                    border: 'none', paddingLeft: 12, fontSize: 18, color: '#707070',
+                  }}
+                />
+              </div>
+              <div className="flex gap-4 mb-4">
+                <input
+                  name="nokStreet" value={form.nokStreet || ''} onChange={handleChange}
+                  placeholder="Street" className="font-inter font-medium"
+                  style={{
+                    width: 291, height: 40, borderRadius: 6, background: '#D9D9D9',
+                    border: 'none', paddingLeft: 12, fontSize: 18, color: '#707070',
+                  }}
+                />
+                <input
+                  name="nokStandNumber" value={form.nokStandNumber || ''} onChange={handleChange}
+                  placeholder="Stand Number" className="font-inter font-medium"
+                  style={{
+                    width: 291, height: 40, borderRadius: 6, background: '#D9D9D9',
+                    border: 'none', paddingLeft: 12, fontSize: 18, color: '#707070',
+                  }}
+                />
+              </div>
+
               <div className="flex justify-center mt-6">
                 <button type="submit"
                   style={{width: 137,height: 44,background: '#707070',color: '#FFFFFF',
