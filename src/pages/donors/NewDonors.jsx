@@ -180,7 +180,7 @@ export default function NewDonors() {
                   name="email" value={form.email} onChange={handleChange}
                   required placeholder="Enter email address" className="font-inter font-medium"
                   style={{
-                    width: 631,height: 40,borderRadius: 6, background: '#D9D9D9', border: 'none',
+                    width: 600,height: 40,borderRadius: 6, background: '#D9D9D9', border: 'none',
                     paddingLeft: 12, fontSize: 18, color: '#707070',
                   }}
                 />
@@ -302,7 +302,7 @@ export default function NewDonors() {
               <div className="mb-4">
                 <input name="nokAddress" value={form.nokAddress} onChange={handleChange} placeholder="Address"
                   className="font-inter font-medium"
-                  style={{width: 631,height: 40,borderRadius: 6,
+                  style={{width: 600,height: 40,borderRadius: 6,
                     background: '#D9D9D9',border: 'none',paddingLeft: 12,fontSize: 18,color: '#707070',
                   }}/>
               </div>
