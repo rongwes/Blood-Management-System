@@ -3,7 +3,7 @@
 
 A full-stack Blood Bank Management System designed to streamline the process of managing blood donations, donor information, blood inventory, and storage across multiple facilities. The system includes:
 
-- 🔧 **Backend**: Node.js, Express, PostgreSQL
+- 🔧 **Backend**: [Node.js, Express, PostgreSQL](https://github.com/Lu-TheCoder/cmpg-311)
 - 🌐 **Frontend**: React + Vite
 
 ---
@@ -88,27 +88,26 @@ Ensure your PostgreSQL DB is running and the `blood_management_db` database is s
 
 ---
 
-## 👥 Contributors
-
-> Special thanks to the team behind this project:
-
-1. **MN Molaba** - Project Manager
-2. **N Maotwe** 
-3. **KE Molobela**
-4. **LM Maseko**
-5. **TA Sechele** 
-6. **OD Monamodi**
-7. **L Saohatse**
-8. **M Ndlovu** 
-9. **RN Madadzhe**
-
----
-
 ## 🔐 Security Considerations
 
 - Passwords and sensitive data are securely stored and hashed.
 - JWT-based authentication can be integrated.
 - CORS policies implemented for frontend-backend communication.
+
+---
+## 👥 Contributors
+
+> Special thanks to the team behind this project:
+
+1. **MN Molaba** - Project Manager, [Frontend Developer](https://github.com/rongwes/Blood-Management-System)
+2. **N Maotwe** - [Frontend Developer](https://github.com/rongwes/Blood-Management-System)
+3. **KE Molobela** - [Backend Developer](https://github.com/Lu-TheCoder/cmpg-311)
+4. **LM Maseko** - [Backend Developer](https://github.com/Lu-TheCoder/cmpg-311)
+5. **TA Sechele** - [Frontend Developer](https://github.com/rongwes/Blood-Management-System)
+6. **OD Monamodi** - [Frontend Developer](https://github.com/rongwes/Blood-Management-System)
+7. **L Saohatse** - [Backend Developer](https://github.com/Lu-TheCoder/cmpg-311)
+8. **M Ndlovu** - [Frontend Developer](https://github.com/rongwes/Blood-Management-System)
+9. **RN Madadzhe** - [Backend Developer](https://github.com/Lu-TheCoder/cmpg-311)
 
 ---
 
